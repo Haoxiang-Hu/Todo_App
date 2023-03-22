@@ -1,5 +1,6 @@
 import streamlit as st
 import functions
+import time
 
 todos = functions.get_todos()
 
@@ -8,6 +9,10 @@ def add_todo():
     todo = st.session_state["new_todo"] + "\n"
     todos.append(todo)
     functions.write_todos(todos)
+
+
+def clear_text():
+    st.session_state["new_todo"] = ""
 
 
 st.title("My Todo App")
@@ -24,3 +29,5 @@ for index, todo in enumerate(todos):
 
 st.text_input(label="", placeholder="Add new todo...",
               on_change=add_todo, key='new_todo')
+
+st.button("clear text input", on_click=clear_text)
